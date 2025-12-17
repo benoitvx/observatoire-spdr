@@ -4,6 +4,7 @@ import { DATASETS } from '../../../lib/config/datasets';
 import Badge from '@codegouvfr/react-dsfr/Badge';
 import Button from '@codegouvfr/react-dsfr/Button';
 import Link from 'next/link';
+import { fr } from '@codegouvfr/react-dsfr/fr';
 
 export default async function DatasetDetailPage({ params }: { params: { slug: string } }) {
   const dataset = await getDatasetBySlug(params.slug);
@@ -15,25 +16,25 @@ export default async function DatasetDetailPage({ params }: { params: { slug: st
   const config = DATASETS.find(d => d.id === dataset.id);
   
   return (
-    <div className="fr-grid-row fr-grid-row--gutters">
-      <div className="fr-col-12">
-        <div className="fr-breadcrumb fr-mb-4w">
-          <ol className="fr-breadcrumb__list">
+    <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters")}>
+      <div className={fr.cx("fr-col-12")}>
+        <div className={fr.cx("fr-breadcrumb", "fr-mb-4w")}>
+          <ol className={fr.cx("fr-breadcrumb__list")}>
             <li>
-              <Link href="/" className="fr-breadcrumb__link">Accueil</Link>
+              <Link href="/" className={fr.cx("fr-breadcrumb__link")}>Accueil</Link>
             </li>
             <li>
-              <span className="fr-breadcrumb__link" aria-current="page">{dataset.title}</span>
+              <span className={fr.cx("fr-breadcrumb__link")} aria-current="page">{dataset.title}</span>
             </li>
           </ol>
         </div>
-        
-        <div className="fr-grid-row fr-grid-row--gutters">
-          <div className="fr-col-12 fr-col-md-8">
+
+        <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters")}>
+          <div className={fr.cx("fr-col-12", "fr-col-md-8")}>
             <h1>{dataset.title}</h1>
-            <p className="fr-text--xl fr-mb-2w">{dataset.description}</p>
-            
-            <div className="fr-tags-group fr-mb-4w">
+            <p className={fr.cx("fr-text--xl", "fr-mb-2w")}>{dataset.description}</p>
+
+            <div className={fr.cx("fr-tags-group", "fr-mb-4w")}>
               {dataset.tags.map(tag => (
                 <Badge key={tag} severity="info" small>
                   {tag}
@@ -41,16 +42,16 @@ export default async function DatasetDetailPage({ params }: { params: { slug: st
               ))}
             </div>
           </div>
-          
-          <div className="fr-col-12 fr-col-md-4">
-            <div className="fr-card fr-card--no-border fr-card--horizontal fr-enlarge-link">
-              <div className="fr-card__body">
-                <div className="fr-card__content">
-                  <h3 className="fr-card__title">
+
+          <div className={fr.cx("fr-col-12", "fr-col-md-4")}>
+            <div className={fr.cx("fr-card", "fr-card--no-border", "fr-card--horizontal", "fr-enlarge-link")}>
+              <div className={fr.cx("fr-card__body")}>
+                <div className={fr.cx("fr-card__content")}>
+                  <h3 className={fr.cx("fr-card__title")}>
                     <span className="fr-icon-dashboard-fill fr-icon--lg fr-mr-1w" aria-hidden="true"></span>
                     Informations clés
                   </h3>
-                  <div className="fr-card__desc">
+                  <div className={fr.cx("fr-card__desc")}>
                     <ul className="fr-m-0 fr-p-0 fr-list--bullet">
                       <li><strong>Producteur:</strong> {dataset.organization?.name || 'Inconnu'}</li>
                       <li><strong>Fréquence attendue:</strong> {config?.expectedFrequency || 'Non spécifié'}</li>
@@ -63,13 +64,13 @@ export default async function DatasetDetailPage({ params }: { params: { slug: st
             </div>
           </div>
         </div>
-        
-        <div className="fr-grid-row fr-grid-row--gutters fr-mt-4w">
-          <div className="fr-col-12">
+
+        <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters", "fr-mt-4w")}>
+          <div className={fr.cx("fr-col-12")}>
             <h2>Ressources disponibles</h2>
             <p>Ce jeu de données contient {dataset.resources.length} ressource(s).</p>
-            
-            <div className="fr-table fr-table--bordered">
+
+            <div className={fr.cx("fr-table", "fr-table--bordered")}>
               <table>
                 <thead>
                   <tr>
@@ -106,8 +107,8 @@ export default async function DatasetDetailPage({ params }: { params: { slug: st
           </div>
         </div>
         
-        <div className="fr-grid-row fr-grid-row--gutters fr-mt-4w">
-          <div className="fr-col-12">
+        <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters", "fr-mt-4w")}>
+          <div className={fr.cx("fr-col-12")}>
             <Link href="/" passHref legacyBehavior>
               <Button priority="secondary" iconId="fr-icon-arrow-left-fill">
                 Retour à la liste des datasets
