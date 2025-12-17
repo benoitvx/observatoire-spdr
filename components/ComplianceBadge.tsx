@@ -1,47 +1,42 @@
-import React from 'react';
 import { ComplianceStatus } from '../lib/compliance/types';
 import Badge from '@codegouvfr/react-dsfr/Badge';
 
 export interface ComplianceBadgeProps {
   status: ComplianceStatus;
   label?: string;
+  detail?: string;
 }
 
-export function ComplianceBadge({ status, label }: ComplianceBadgeProps) {
-  const getBadgeType = (status: ComplianceStatus) => {
-    switch (status) {
-      case 'compliant':
-        return 'success';
-      case 'warning':
-        return 'warning';
-      case 'non_compliant':
-        return 'error';
-      case 'not_applicable':
-      default:
-        return 'info';
-    }
+export function ComplianceBadge({ status, label, detail }: ComplianceBadgeProps) {
+  const severityMap: Record<ComplianceStatus, "success" | "warning" | "error" | "info"> = {
+    compliant: "success",
+    warning: "warning",
+    non_compliant: "error",
+    not_applicable: "info"
   };
-  
-  const getDefaultLabel = (status: ComplianceStatus) => {
-    switch (status) {
-      case 'compliant':
-        return 'Conforme';
-      case 'warning':
-        return 'Avertissement';
-      case 'non_compliant':
-        return 'Non conforme';
-      case 'not_applicable':
-      default:
-        return 'Non applicable';
-    }
+
+  const labelMap: Record<ComplianceStatus, string> = {
+    compliant: "CONFORME",
+    warning: "AVERTISSEMENT",
+    non_compliant: "NON CONFORME",
+    not_applicable: "N/A"
   };
-  
-  const badgeType = getBadgeType(status);
-  const displayLabel = label || getDefaultLabel(status);
-  
+
+  const displayLabel = label || labelMap[status];
+
   return (
-    <Badge severity={badgeType} small>
-      {displayLabel}
-    </Badge>
+    <div style={{ textAlign: 'center' }}>
+      <Badge severity={severityMap[status]} small>
+        {displayLabel}
+      </Badge>
+      {detail && (
+        <span
+          className="fr-text--xs fr-mt-1v"
+          style={{ display: 'block', color: 'var(--text-mention-grey)' }}
+        >
+          {detail}
+        </span>
+      )}
+    </div>
   );
 }
