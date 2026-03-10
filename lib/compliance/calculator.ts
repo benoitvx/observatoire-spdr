@@ -139,7 +139,9 @@ function calculateApiCompliance(dataset: DatagouvDataset, config: DatasetConfig)
   };
 }
 
-// Score global : (conformes × 2 + warning × 1) / (total × 2) × 100
+// Score global : (conformes × 2 + warning × 1) / (applicable × 2) × 100
+// Les indicateurs not_applicable sont exclus du dénominateur pour ne pas pénaliser
+// les datasets qui n'ont pas vocation à avoir certains indicateurs (ex: API)
 function calculateGlobalScore(compliance: DatasetCompliance): number {
   const indicators = [
     compliance.metadata.status,
@@ -148,29 +150,33 @@ function calculateGlobalScore(compliance: DatasetCompliance): number {
     compliance.download.status,
     compliance.api.status
   ];
-  
+
   let score = 0;
-  const totalIndicators = indicators.length;
-  
+  let applicableCount = 0;
+
   indicators.forEach(indicator => {
+    if (indicator === 'not_applicable') return;
+    applicableCount++;
     if (indicator === 'compliant') {
       score += 2;
     } else if (indicator === 'warning') {
       score += 1;
     }
-    // non_compliant et not_applicable ne donnent pas de points
   });
-  
-  return Math.round((score / (totalIndicators * 2)) * 100);
+
+  if (applicableCount === 0) return 100;
+  return Math.round((score / (applicableCount * 2)) * 100);
 }
 
 // Fonction principale qui orchestre tout
 export function calculateCompliance(dataset: DatagouvDataset, config: DatasetConfig): DatasetCompliance {
   const fetchedAt = new Date();
-  const lastModifiedDate = new Date(dataset.last_modified);
-  
+  // Utiliser last_update (date de dernière modification de ressource) plutôt que
+  // last_modified (date de modification des métadonnées) pour refléter la fraîcheur réelle des données
+  const lastUpdateDate = new Date(dataset.last_update);
+
   const metadata = calculateMetadataCompliance(dataset);
-  const update = calculateUpdateStatus(lastModifiedDate, config.expectedFrequency);
+  const update = calculateUpdateStatus(lastUpdateDate, config.expectedFrequency);
   const format = calculateFormatCompliance(dataset.resources);
   const download = calculateDownloadCompliance(dataset.resources);
   const api = calculateApiCompliance(dataset, config);

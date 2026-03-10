@@ -112,7 +112,7 @@ export function DatasetDetails({ dataset, config, compliance }: DatasetDetailsPr
                 Fréquence attendue : {FREQUENCY_LABELS[config.expectedFrequency] || config.expectedFrequency}
               </li>
               <li className={fr.cx("fr-text--sm", "fr-mb-1v")}>
-                Dernière MAJ : {new Date(dataset.last_modified).toLocaleDateString("fr-FR")}
+                Dernière MAJ : {new Date(dataset.last_update).toLocaleDateString("fr-FR")}
               </li>
               <li className={fr.cx("fr-text--sm")}>
                 Écart : {compliance.update.daysSinceUpdate} jour(s)

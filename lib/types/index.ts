@@ -16,6 +16,7 @@ export interface DatagouvDataset {
   description: string | null;
   frequency: string | null;
   last_modified: string;
+  last_update: string;
   created_at: string;
   organization: {
     name: string;

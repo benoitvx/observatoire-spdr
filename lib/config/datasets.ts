@@ -13,6 +13,13 @@ export interface DatasetConfig {
   apiUrl?: string;
 }
 
+// Les fréquences sont volontairement hardcodées plutôt que récupérées depuis data.gouv.fr.
+// Raison : la fréquence déclarée sur data.gouv n'est pas toujours pertinente (ex: "punctual"
+// ne permet pas de calculer un seuil de conformité). Les valeurs ci-dessous reflètent la
+// fréquence réelle attendue de mise à jour des données.
+// Écarts connus : SIRENE (config: daily, data.gouv: monthly), RGE (biannual vs irregular),
+// BAN (weekly vs daily), Org. Admin. (weekly vs punctual), ROME (quadrimestrial vs punctual),
+// RPG (campaign vs annual).
 export const DATASETS: DatasetConfig[] = [
   {
     id: '5b7ffc618b4c4169d30727e0',
