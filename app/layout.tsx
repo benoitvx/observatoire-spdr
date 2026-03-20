@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
-import { startReactDsfr } from '@codegouvfr/react-dsfr/spa';
+import { DsfrProviderBase } from '@codegouvfr/react-dsfr/next-app-router';
 import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css';
-import './globals.css';
+import Link from 'next/link';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 
-startReactDsfr({ defaultColorScheme: 'system' });
+declare module "@codegouvfr/react-dsfr/next-app-router" {
+  interface RegisterLink {
+    Link: typeof Link;
+  }
+}
+
+const defaultColorScheme = "system" as const;
 
 export const metadata: Metadata = {
   title: 'Observatoire du SPDR',
@@ -22,15 +28,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
+      </head>
       <body>
-        <Header />
+        <DsfrProviderBase lang="fr" Link={Link} defaultColorScheme={defaultColorScheme}>
+          <Header />
 
-        <main className="fr-container fr-mt-4w fr-mb-8w">
-          {children}
-        </main>
+          <main className="fr-container fr-mt-4w fr-mb-8w">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </DsfrProviderBase>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import { DATASETS } from '../lib/config/datasets';
 import { calculateCompliance } from '../lib/compliance/calculator';
 import { ComplianceTable } from '../components/dashboard/ComplianceTable';
 import { fr } from '@codegouvfr/react-dsfr/fr';
+import { Alert } from '@codegouvfr/react-dsfr/Alert';
 
 export default async function HomePage() {
   const datasets = await getAllDatasets();
@@ -22,11 +23,12 @@ export default async function HomePage() {
           Suivez la conformité et la qualité des 9 jeux de données de référence du SPDR.
         </p>
 
-        <div className={fr.cx("fr-alert", "fr-alert--info", "fr-mb-4w")}>
-          <p className={fr.cx("fr-alert__title")}>
-            Dernière actualisation : {fetchedAt.toLocaleString('fr-FR')}
-          </p>
-        </div>
+        <Alert
+          severity="info"
+          small
+          description={`Dernière actualisation : ${fetchedAt.toLocaleString('fr-FR')}`}
+          className={fr.cx("fr-mb-4w")}
+        />
 
         <ComplianceTable
           datasets={datasets}

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Badge from '@codegouvfr/react-dsfr/Badge';
+import { Breadcrumb } from '@codegouvfr/react-dsfr/Breadcrumb';
+import { Quote } from '@codegouvfr/react-dsfr/Quote';
 import { fr } from '@codegouvfr/react-dsfr/fr';
 
 export const metadata = {
@@ -11,22 +13,11 @@ export default function MethodologiePage() {
   return (
     <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters")}>
       <div className={fr.cx("fr-col-12")}>
-        {/* Fil d'Ariane */}
-        <nav role="navigation" className={fr.cx("fr-breadcrumb")} aria-label="vous êtes ici :">
-          <button className="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb">
-            Voir le fil d'Ariane
-          </button>
-          <div className={fr.cx("fr-collapse")} id="breadcrumb">
-            <ol className={fr.cx("fr-breadcrumb__list")}>
-              <li>
-                <Link href="/" className={fr.cx("fr-breadcrumb__link")}>Accueil</Link>
-              </li>
-              <li>
-                <span className={fr.cx("fr-breadcrumb__link")} aria-current="page">Méthodologie</span>
-              </li>
-            </ol>
-          </div>
-        </nav>
+        <Breadcrumb
+          homeLinkProps={{ href: "/" }}
+          segments={[]}
+          currentPageLabel="Méthodologie"
+        />
 
         {/* Titre principal */}
         <h1>Méthodologie de l'Observatoire du SPDR</h1>
@@ -358,9 +349,10 @@ Exemple :
 
           <h3>Critère réglementaire</h3>
           <p>L'arrêté du 14 juin 2017 (Article 5) impose que les données soient disponibles :</p>
-          <blockquote className={fr.cx("fr-quote", "fr-mb-2w")}>
-            <p>"en téléchargement dans leur intégralité, aisément réalisable par un traitement automatisé, en une ou plusieurs opérations"</p>
-          </blockquote>
+          <Quote
+            text="en téléchargement dans leur intégralité, aisément réalisable par un traitement automatisé, en une ou plusieurs opérations"
+            source={<cite>Arrêté du 14 juin 2017, Article 5</cite>}
+          />
 
           <h3>Seuils de conformité</h3>
           <div className="fr-table">
@@ -395,13 +387,15 @@ Exemple :
 
           <h3>Critère réglementaire</h3>
           <p>L'arrêté du 14 juin 2017 (Article 5) précise que les données doivent être disponibles :</p>
-          <blockquote className={fr.cx("fr-quote", "fr-mb-2w")}>
-            <p>"le cas échéant, par l'intermédiaire d'une interface de programmation"</p>
-          </blockquote>
+          <Quote
+            text="le cas échéant, par l'intermédiaire d'une interface de programmation"
+            source={<cite>Arrêté du 14 juin 2017, Article 5</cite>}
+          />
           <p>L'Article 4 ajoute que l'administration :</p>
-          <blockquote className={fr.cx("fr-quote", "fr-mb-2w")}>
-            <p>"s'efforce de garantir la disponibilité des données par l'intermédiaire d'une interface de programmation 99,5 % du temps mensuel"</p>
-          </blockquote>
+          <Quote
+            text="s'efforce de garantir la disponibilité des données par l'intermédiaire d'une interface de programmation 99,5 % du temps mensuel"
+            source={<cite>Arrêté du 14 juin 2017, Article 4</cite>}
+          />
 
           <h3>APIs connues par jeu de données</h3>
           <div className="fr-table">

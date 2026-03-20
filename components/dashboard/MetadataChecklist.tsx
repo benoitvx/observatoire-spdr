@@ -1,8 +1,8 @@
 "use client";
 
 import { fr } from "@codegouvfr/react-dsfr/fr";
-import Badge from "@codegouvfr/react-dsfr/Badge";
-import { MetadataCompliance, ComplianceStatus } from "../../lib/compliance/types";
+import { ComplianceBadge } from "../ComplianceBadge";
+import { MetadataCompliance } from "../../lib/compliance/types";
 
 interface MetadataChecklistProps {
   metadata: MetadataCompliance;
@@ -24,53 +24,32 @@ const METADATA_ITEMS: MetadataItem[] = [
   { key: "tags", label: "Mots-clés" },
 ];
 
-function getStatusBadge(status: ComplianceStatus) {
-  const severityMap: Record<ComplianceStatus, "success" | "warning" | "error" | "info"> = {
-    compliant: "success",
-    warning: "warning",
-    non_compliant: "error",
-    not_applicable: "info",
-  };
-
-  const labelMap: Record<ComplianceStatus, string> = {
-    compliant: "Conforme",
-    warning: "Partiel",
-    non_compliant: "Incomplet",
-    not_applicable: "N/A",
-  };
-
-  return <Badge severity={severityMap[status]} small>{labelMap[status]}</Badge>;
-}
-
 export function MetadataChecklist({ metadata }: MetadataChecklistProps) {
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
+      <div className={fr.cx("fr-mb-2w")} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
         <h4 className={fr.cx("fr-text--bold", "fr-mb-0")}>
           Métadonnées
         </h4>
         <span className={fr.cx("fr-text--sm", "fr-text--bold")}>{metadata.score}/8</span>
-        {getStatusBadge(metadata.status)}
+        <ComplianceBadge status={metadata.status} />
       </div>
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "0.25rem 1rem"
-      }}>
+      <div className={fr.cx("fr-grid-row", "fr-grid-row--gutters")}>
         {METADATA_ITEMS.map((item) => {
           const isValid = metadata[item.key];
 
           return (
             <div
               key={item.key}
-              style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
+              className={fr.cx("fr-col-6")}
             >
               <span className={fr.cx("fr-text--sm")}>{item.label}</span>
+              {" "}
               <span
                 style={{
                   color: isValid ? "var(--text-default-success)" : "var(--text-default-error)",
-                  fontSize: "0.875rem"
                 }}
+                aria-label={isValid ? "présent" : "absent"}
               >
                 {isValid ? "✓" : "✗"}
               </span>

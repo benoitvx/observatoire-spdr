@@ -5,6 +5,7 @@ import Badge from "@codegouvfr/react-dsfr/Badge";
 import { DatagouvDataset } from "../../lib/types";
 import { DatasetConfig } from "../../lib/config/datasets";
 import { DatasetCompliance, ComplianceStatus } from "../../lib/compliance/types";
+import { ComplianceBadge } from "../ComplianceBadge";
 import { MetadataChecklist } from "./MetadataChecklist";
 
 interface DatasetDetailsProps {
@@ -24,29 +25,11 @@ const FREQUENCY_LABELS: Record<string, string> = {
   campaign: "Par campagne",
 };
 
-function StatusBadge({ status }: { status: ComplianceStatus }) {
-  const severityMap: Record<ComplianceStatus, "success" | "warning" | "error" | "info"> = {
-    compliant: "success",
-    warning: "warning",
-    non_compliant: "error",
-    not_applicable: "info",
-  };
-
-  const labelMap: Record<ComplianceStatus, string> = {
-    compliant: "Conforme",
-    warning: "Avertissement",
-    non_compliant: "Non conforme",
-    not_applicable: "N/A",
-  };
-
-  return <Badge severity={severityMap[status]} small>{labelMap[status]}</Badge>;
-}
-
 function SectionHeader({ title, status }: { title: string; status?: ComplianceStatus }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
+    <div className={fr.cx("fr-mb-1w")} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
       <h4 className={fr.cx("fr-text--bold", "fr-mb-0")}>{title}</h4>
-      {status && <StatusBadge status={status} />}
+      {status && <ComplianceBadge status={status} />}
     </div>
   );
 }
