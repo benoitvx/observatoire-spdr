@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Observatoire du Service Public de la Donnee de Reference (SPDR)
 
-## Getting Started
+Tableau de bord de suivi de la conformite des 9 jeux de donnees de reference designes par la [Loi pour une Republique Numerique](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000033205649) (2016, article 14).
 
-First, run the development server:
+L'application interroge l'API [data.gouv.fr](https://www.data.gouv.fr) en temps reel et evalue chaque jeu de donnees selon 5 indicateurs de conformite.
+
+## Jeux de donnees suivis
+
+| Jeu de donnees | Producteur | Frequence attendue |
+|---|---|---|
+| SIRENE | INSEE | Quotidienne |
+| RNA | Ministere de l'Interieur | Mensuelle |
+| PCI (cadastre) | DGFiP | Trimestrielle |
+| RGE | IGN | Semestrielle |
+| BAN | DINUM / IGN | Hebdomadaire |
+| Organisation Administrative | DILA | Hebdomadaire |
+| ROME | France Travail | Quadrimestrielle |
+| COG | INSEE | Annuelle |
+| RPG | IGN / ASP | Annuelle (campagne) |
+
+## Indicateurs de conformite
+
+- **Metadonnees** : presence des 8 champs obligatoires (titre, description, date, frequence, format, couverture spatiale, licence, mots-cles)
+- **Mise a jour** : ecart entre la derniere mise a jour et la frequence attendue
+- **Formats ouverts** : disponibilite de ressources en formats ouverts (CSV, JSON, GeoJSON, XML, Parquet, ODS, SHP, GPKG, GML)
+- **Telechargement** : presence de ressources telechargeables
+- **API** : disponibilite d'une API documentee (si applicable)
+
+Le score global (0-100 %) est calcule en convertissant chaque indicateur en points (Conforme = 2, Avertissement = 1, Non conforme = 0), les indicateurs non applicables etant exclus du denominateur.
+
+## Stack technique
+
+| Technologie | Usage |
+|---|---|
+| [Next.js](https://nextjs.org) 14 | Framework (App Router, Server Components) |
+| [React](https://react.dev) 18 | UI |
+| [TypeScript](https://www.typescriptlang.org) 5 | Typage statique |
+| [@codegouvfr/react-dsfr](https://react-dsfr.codegouv.studio/) 1.29 | Design System de l'Etat (DSFR) |
+
+## Installation
 
 ```bash
+# Cloner le depot
+git clone https://github.com/benoitvx/observatoire-spdr.git
+cd observatoire-spdr
+
+# Installer les dependances
+npm install
+
+# Lancer le serveur de developpement
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+L'application est accessible sur [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure du projet
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  page.tsx                  # Page d'accueil : tableau de conformite
+  methodologie/page.tsx     # Page methodologie
+  layout.tsx                # Layout racine (DSFR)
+components/
+  dashboard/
+    ComplianceTable.tsx     # Tableau interactif avec lignes expandables
+    DatasetDetails.tsx      # Detail d'un jeu de donnees (vue expandee)
+    MetadataChecklist.tsx   # Checklist des metadonnees
+  layout/
+    Header.tsx              # En-tete DSFR
+    Footer.tsx              # Pied de page DSFR
+  ComplianceBadge.tsx       # Badge de statut (Conforme/Avertissement/Non conforme)
+  ScoreTag.tsx              # Affichage du score
+lib/
+  api/datagouv.ts           # Client API data.gouv.fr (cache 5 min)
+  compliance/calculator.ts  # Algorithme de scoring
+  compliance/thresholds.ts  # Seuils par frequence de mise a jour
+  config/datasets.ts        # Configuration des 9 jeux de donnees
+```
 
-## Learn More
+## Scripts disponibles
 
-To learn more about Next.js, take a look at the following resources:
+| Commande | Description |
+|---|---|
+| `npm run dev` | Serveur de developpement |
+| `npm run build` | Build de production |
+| `npm start` | Serveur de production |
+| `npm run lint` | Linting |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[MIT](LICENSE)
