@@ -144,6 +144,39 @@ const { withDsfr, dsfrDocumentApi } = createNextDsfrIntegrationApi({
 // Dans _document.tsx : utiliser dsfrDocumentApi
 ```
 
+## ESLint avec react-dsfr
+
+### Configuration requise
+
+Un projet Next.js + DSFR avec du contenu français nécessite un `.eslintrc.json` **avant** de lancer `next lint`, sinon la commande bloque en mode interactif (échec garanti en CI).
+
+```json
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-css-tags": "off"
+  }
+}
+```
+
+### Pourquoi ces règles sont désactivées
+
+- **`react/no-unescaped-entities`** : le texte français contient des apostrophes partout (`l'État`, `d'utilisation`, `n'est`). Forcer `&apos;` sur chaque occurrence rend le JSX illisible. Cette règle est conçue pour l'anglais où les apostrophes dans le JSX sont rares.
+
+- **`@next/next/no-css-tags`** : react-dsfr nécessite un `<link>` manuel vers `/dsfr/utility/icons/icons.min.css` dans le layout. Ce fichier statique n'est pas un module CSS et ne peut pas être importé via `import`. Le warning est un faux positif.
+
+### Compatibilité ESLint / Next.js
+
+| Next.js | ESLint | eslint-config-next |
+|---------|--------|--------------------|
+| 14.x    | 8.x    | 14.x               |
+| 15.x    | 9.x    | 15.x               |
+
+**Piège** : `npm install eslint` installe ESLint 9 par défaut, qui est incompatible avec Next.js 14 (`Unknown options: useEslintrc, extensions...`). Forcer la version : `npm install --save-dev eslint@^8 eslint-config-next@14`.
+
+---
+
 ## Create React App
 
 1. Scripts dans `package.json` :

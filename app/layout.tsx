@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DsfrProviderBase } from '@codegouvfr/react-dsfr/next-app-router';
 import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css';
 import Link from 'next/link';
+import { Display } from '@codegouvfr/react-dsfr/Display';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 
@@ -41,6 +42,7 @@ export default function RootLayout({
           </main>
 
           <Footer />
+          <Display />
         </DsfrProviderBase>
       </body>
     </html>

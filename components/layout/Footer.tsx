@@ -1,6 +1,9 @@
 "use client";
 
 import { Footer as DSFRFooter } from "@codegouvfr/react-dsfr/Footer";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+
+const gitSha = process.env.NEXT_PUBLIC_GIT_SHA;
 
 export function Footer() {
   return (
@@ -30,7 +33,20 @@ export function Footer() {
         {
           text: "Gestion des cookies",
           linkProps: { href: "#" }
-        }
+        },
+        headerFooterDisplayItem,
+        ...(gitSha
+          ? [
+              {
+                text: `Version : ${gitSha}`,
+                linkProps: {
+                  href: `https://github.com/benoitvx/observatoire-spdr/commit/${gitSha}`,
+                  target: "_blank" as const,
+                  rel: "noopener noreferrer",
+                },
+              },
+            ]
+          : []),
       ]}
       license={
         <>
