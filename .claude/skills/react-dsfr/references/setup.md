@@ -85,25 +85,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ### Prévention du flash dark mode (Next.js App Router)
 
-Le flash blanc au chargement en mode sombre est un problème courant. Trois éléments sont **indispensables** pour l'éviter :
+Le flash blanc au chargement en mode sombre est un problème courant. Deux éléments sont **indispensables** pour l'éviter :
 
-1. **`getHtmlAttributes()`** : définit `data-fr-scheme` et `data-fr-theme` sur la balise `<html>` côté SSR, pour que le CSS DSFR applique les bonnes couleurs dès le premier rendu.
+1. **`createGetHtmlAttributes()`** : crée une fonction qui retourne les attributs `data-fr-scheme`, `data-fr-theme` et `suppressHydrationWarning` pour la balise `<html>` côté SSR.
 
-2. **`<StartDsfr />`** : injecte un script inline qui s'exécute **avant** le CSS. Ce script lit `localStorage` (préférence utilisateur) ou `prefers-color-scheme` (préférence système) et applique le bon thème immédiatement.
+2. **`getScriptToRunAsap()`** : génère un script inline à placer dans `<head>` qui détecte le thème (localStorage ou `prefers-color-scheme`) **avant** le premier paint CSS.
 
-3. **`<DsfrHead />`** : charge les feuilles de style DSFR dans le bon ordre.
+**Piège courant** : utiliser `DsfrProviderBase` seul (sans `getHtmlAttributes` ni le script) provoque un flash car le thème n'est résolu que côté client après hydratation.
 
-**Piège courant** : utiliser `DsfrProviderBase` seul (sans `getHtmlAttributes` ni `StartDsfr`) provoque un flash car le thème n'est résolu que côté client après hydratation. Il faut impérativement utiliser le triplet `getHtmlAttributes` + `StartDsfr` + `DsfrHead` dans le layout racine.
+#### Setup idéal (avec `DsfrHead`)
+
+Si le projet utilise `transpilePackages: ["@codegouvfr/react-dsfr"]` dans `next.config.js`, utiliser le setup complet :
 
 ```tsx
-// ❌ PROVOQUE UN FLASH - Ne pas faire
-<html lang="fr" suppressHydrationWarning>
-    <body>
-        <DsfrProviderBase defaultColorScheme="system">{children}</DsfrProviderBase>
-    </body>
-</html>
+import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
+import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
+import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
+import { StartDsfr } from "@codegouvfr/react-dsfr/next-appdir/StartDsfr";
 
-// ✅ PAS DE FLASH - Setup correct
 <html {...getHtmlAttributes({ defaultColorScheme, lang })}>
     <head>
         <StartDsfr />
@@ -114,6 +113,90 @@ Le flash blanc au chargement en mode sombre est un problème courant. Trois él�
     </body>
 </html>
 ```
+
+#### Setup alternatif (sans `transpilePackages`)
+
+`DsfrHeadBase` importe un fichier SCSS (`dsfr_plus_icons.scss`) qui inclut les fonts `.woff2`. Sans `transpilePackages`, webpack ne sait pas les traiter et le build échoue. Dans ce cas, utiliser les imports directs :
+
+```tsx
+import { DsfrProviderBase } from '@codegouvfr/react-dsfr/next-app-router';
+import { createGetHtmlAttributes } from '@codegouvfr/react-dsfr/next-app-router/getHtmlAttributes';
+import { getScriptToRunAsap } from '@codegouvfr/react-dsfr/useIsDark/scriptToRunAsap';
+import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css';
+
+const defaultColorScheme = "system" as const;
+const { getHtmlAttributes } = createGetHtmlAttributes({ defaultColorScheme });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <html {...getHtmlAttributes({ lang: "fr" })}>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: getScriptToRunAsap({
+                            defaultColorScheme,
+                            nonce: undefined,
+                            trustedTypesPolicyName: "react-dsfr",
+                        }),
+                    }}
+                />
+                <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
+            </head>
+            <body>
+                <DsfrProviderBase lang="fr" Link={Link} defaultColorScheme={defaultColorScheme}>
+                    {children}
+                </DsfrProviderBase>
+            </body>
+        </html>
+    );
+}
+```
+
+**Points clés** :
+- `createGetHtmlAttributes` est importé depuis `.../getHtmlAttributes` (pas `server-only-index` qui tire `DsfrHead` et ses fonts)
+- Le CSS DSFR est importé via `import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css'` (géré par Next.js)
+- Le script anti-flash est injecté manuellement via `dangerouslySetInnerHTML`
+
+### Re-initialisation DSFR après hydratation React
+
+Le JS DSFR scanne le DOM au chargement initial pour bind les événements (modales, disclosures, accordéons). Mais React hydrate **après** ce scan : les éléments rendus par React (comme `<Display />` ou des modales `createModal`) ne sont pas découverts.
+
+**Symptôme** : les boutons avec `aria-controls` sont présents dans le DOM mais ne déclenchent rien au clic.
+
+**Solution** : appeler `window.dsfr.start()` après l'hydratation React pour forcer un re-scan du DOM.
+
+```tsx
+// components/DsfrStartup.tsx
+"use client";
+
+import { useEffect } from "react";
+
+export function DsfrStartup() {
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.dsfr) {
+            window.dsfr.start();
+        }
+    }, []);
+    return null;
+}
+```
+
+Placer `<DsfrStartup />` dans le layout racine, après tous les composants DSFR :
+
+```tsx
+<DsfrProviderBase lang="fr" Link={Link} defaultColorScheme={defaultColorScheme}>
+    <Header />
+    <main>{children}</main>
+    <Footer />
+    <Display />
+    <DsfrStartup />
+</DsfrProviderBase>
+```
+
+**Important** : sans ce re-scan, les composants suivants ne fonctionneront pas au clic :
+- `<Display />` (paramètres d'affichage)
+- Modales créées via `createModal()`
+- Tout composant DSFR qui repose sur le mécanisme natif de disclosure (`aria-controls`)
 
 ## Next.js Pages Router
 
