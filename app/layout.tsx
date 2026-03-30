@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { DsfrProviderBase } from '@codegouvfr/react-dsfr/next-app-router';
+import { createGetHtmlAttributes } from '@codegouvfr/react-dsfr/next-app-router/getHtmlAttributes';
+import { getScriptToRunAsap } from '@codegouvfr/react-dsfr/useIsDark/scriptToRunAsap';
 import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css';
-import Link from 'next/link';
 import { Display } from '@codegouvfr/react-dsfr/Display';
+import Link from 'next/link';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 
@@ -13,6 +15,8 @@ declare module "@codegouvfr/react-dsfr/next-app-router" {
 }
 
 const defaultColorScheme = "system" as const;
+
+const { getHtmlAttributes } = createGetHtmlAttributes({ defaultColorScheme });
 
 export const metadata: Metadata = {
   title: 'Observatoire du SPDR',
@@ -29,8 +33,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html {...getHtmlAttributes({ lang: "fr" })}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getScriptToRunAsap({
+              defaultColorScheme,
+              nonce: undefined,
+              trustedTypesPolicyName: "react-dsfr",
+            }),
+          }}
+        />
         <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
       </head>
       <body>
