@@ -23,15 +23,15 @@ L'Observatoire s'appuie sur les textes suivants :
 
 | Nom | Producteur | Fréquence réglementaire |
 |-----|------------|-------------------------|
-| **Base Sirene** (SIREN, SIRET) | INSEE | Quotidienne (J+1 ouvré) |
-| **Répertoire National des Associations** (RNA) | Ministère de l'Intérieur | Mensuelle |
-| **Plan Cadastral Informatisé** (PCI) | DGFiP | Trimestrielle |
-| **Référentiel à Grande Échelle** (RGE) | IGN | Semestrielle |
-| **Base Adresse Nationale** (BAN) | DINUM / IGN | Hebdomadaire |
-| **Organisation Administrative de l'État** | DILA | Hebdomadaire |
-| **Répertoire des Métiers et Emplois** (ROME) | France Travail | Quadrimestrielle |
-| **Code Officiel Géographique** (COG) | INSEE | Annuelle |
-| **Registre Parcellaire Graphique** (RPG) | IGN / ASP | Annuelle (fin campagne PAC) |
+| **[Base Sirene](https://www.data.gouv.fr/fr/datasets/5b7ffc618b4c4169d30727e0/)** (SIREN, SIRET) | INSEE | Quotidienne (J+1 ouvré) |
+| **[Répertoire National des Associations](https://www.data.gouv.fr/fr/datasets/58e53811c751df03df38f42d/)** (RNA) | Ministère de l'Intérieur | Mensuelle |
+| **[Plan Cadastral Informatisé](https://www.data.gouv.fr/fr/datasets/58e5924b88ee3802ca255566/)** (PCI) | DGFiP | Trimestrielle |
+| **[Référentiel à Grande Échelle](https://www.data.gouv.fr/fr/datasets/58e5842688ee386c65805755/)** (RGE) | IGN | Semestrielle |
+| **[Base Adresse Nationale](https://www.data.gouv.fr/fr/datasets/5530fbacc751df5ff937dddb/)** (BAN) | DINUM / IGN | Hebdomadaire |
+| **[Organisation Administrative de l'État](https://www.data.gouv.fr/fr/datasets/57343feb88ee3823b0d1b934/)** | DILA | Hebdomadaire |
+| **[Répertoire des Métiers et Emplois](https://www.data.gouv.fr/fr/datasets/58da857388ee384902e505f5/)** (ROME) | France Travail | Quadrimestrielle |
+| **[Code Officiel Géographique](https://www.data.gouv.fr/fr/datasets/58c984b088ee386cdb1261f3/)** (COG) | INSEE | Annuelle |
+| **[Registre Parcellaire Graphique](https://www.data.gouv.fr/fr/datasets/58d8d8a0c751df17537c66be/)** (RPG) | IGN / ASP | Annuelle (fin campagne PAC) |
 
 ---
 

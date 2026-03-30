@@ -85,47 +85,47 @@ export default function MethodologiePage() {
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Base Sirene</strong> (SIREN, SIRET)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/5b7ffc618b4c4169d30727e0/" target="_blank" rel="noopener noreferrer"><strong>Base Sirene</strong></a> (SIREN, SIRET)</td>
                   <td>INSEE</td>
                   <td>Quotidienne (J+1 ouvré)</td>
                 </tr>
                 <tr>
-                  <td><strong>Répertoire National des Associations</strong> (RNA)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58e53811c751df03df38f42d/" target="_blank" rel="noopener noreferrer"><strong>Répertoire National des Associations</strong></a> (RNA)</td>
                   <td>Ministère de l'Intérieur</td>
                   <td>Mensuelle</td>
                 </tr>
                 <tr>
-                  <td><strong>Plan Cadastral Informatisé</strong> (PCI)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58e5924b88ee3802ca255566/" target="_blank" rel="noopener noreferrer"><strong>Plan Cadastral Informatisé</strong></a> (PCI)</td>
                   <td>DGFiP</td>
                   <td>Trimestrielle</td>
                 </tr>
                 <tr>
-                  <td><strong>Référentiel à Grande Échelle</strong> (RGE)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58e5842688ee386c65805755/" target="_blank" rel="noopener noreferrer"><strong>Référentiel à Grande Échelle</strong></a> (RGE)</td>
                   <td>IGN</td>
                   <td>Semestrielle</td>
                 </tr>
                 <tr>
-                  <td><strong>Base Adresse Nationale</strong> (BAN)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/5530fbacc751df5ff937dddb/" target="_blank" rel="noopener noreferrer"><strong>Base Adresse Nationale</strong></a> (BAN)</td>
                   <td>DINUM / IGN</td>
                   <td>Hebdomadaire</td>
                 </tr>
                 <tr>
-                  <td><strong>Organisation Administrative de l'État</strong></td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/57343feb88ee3823b0d1b934/" target="_blank" rel="noopener noreferrer"><strong>Organisation Administrative de l'État</strong></a></td>
                   <td>DILA</td>
                   <td>Hebdomadaire</td>
                 </tr>
                 <tr>
-                  <td><strong>Répertoire des Métiers et Emplois</strong> (ROME)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58da857388ee384902e505f5/" target="_blank" rel="noopener noreferrer"><strong>Répertoire des Métiers et Emplois</strong></a> (ROME)</td>
                   <td>France Travail</td>
                   <td>Quadrimestrielle</td>
                 </tr>
                 <tr>
-                  <td><strong>Code Officiel Géographique</strong> (COG)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58c984b088ee386cdb1261f3/" target="_blank" rel="noopener noreferrer"><strong>Code Officiel Géographique</strong></a> (COG)</td>
                   <td>INSEE</td>
                   <td>Annuelle</td>
                 </tr>
                 <tr>
-                  <td><strong>Registre Parcellaire Graphique</strong> (RPG)</td>
+                  <td><a href="https://www.data.gouv.fr/fr/datasets/58d8d8a0c751df17537c66be/" target="_blank" rel="noopener noreferrer"><strong>Registre Parcellaire Graphique</strong></a> (RPG)</td>
                   <td>IGN / ASP</td>
                   <td>Annuelle (fin campagne PAC)</td>
                 </tr>

@@ -83,6 +83,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+### Prévention du flash dark mode (Next.js App Router)
+
+Le flash blanc au chargement en mode sombre est un problème courant. Trois éléments sont **indispensables** pour l'éviter :
+
+1. **`getHtmlAttributes()`** : définit `data-fr-scheme` et `data-fr-theme` sur la balise `<html>` côté SSR, pour que le CSS DSFR applique les bonnes couleurs dès le premier rendu.
+
+2. **`<StartDsfr />`** : injecte un script inline qui s'exécute **avant** le CSS. Ce script lit `localStorage` (préférence utilisateur) ou `prefers-color-scheme` (préférence système) et applique le bon thème immédiatement.
+
+3. **`<DsfrHead />`** : charge les feuilles de style DSFR dans le bon ordre.
+
+**Piège courant** : utiliser `DsfrProviderBase` seul (sans `getHtmlAttributes` ni `StartDsfr`) provoque un flash car le thème n'est résolu que côté client après hydratation. Il faut impérativement utiliser le triplet `getHtmlAttributes` + `StartDsfr` + `DsfrHead` dans le layout racine.
+
+```tsx
+// ❌ PROVOQUE UN FLASH - Ne pas faire
+<html lang="fr" suppressHydrationWarning>
+    <body>
+        <DsfrProviderBase defaultColorScheme="system">{children}</DsfrProviderBase>
+    </body>
+</html>
+
+// ✅ PAS DE FLASH - Setup correct
+<html {...getHtmlAttributes({ defaultColorScheme, lang })}>
+    <head>
+        <StartDsfr />
+        <DsfrHead Link={Link} />
+    </head>
+    <body>
+        <DsfrProvider lang={lang}>{children}</DsfrProvider>
+    </body>
+</html>
+```
+
 ## Next.js Pages Router
 
 1. Ajouter dans `next.config.js` :

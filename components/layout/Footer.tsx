@@ -24,8 +24,8 @@ export function Footer() {
           linkProps: { href: "/mentions-legales" }
         },
         {
-          text: "Données personnelles",
-          linkProps: { href: "/donnees-personnelles" }
+          text: "Conditions générales d'utilisation",
+          linkProps: { href: "/cgu" }
         },
         {
           text: "Gestion des cookies",
