@@ -17,18 +17,18 @@ export default function CguPage() {
           currentPageLabel="Conditions générales d'utilisation"
         />
 
-        <h1>Conditions générales d'utilisation</h1>
+        <h1>Conditions générales d&apos;utilisation</h1>
 
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Présentation</h2>
           <p>
-            L'Observatoire du Service Public de la Donnée de Référence (SPDR) est un service public
+            L&apos;Observatoire du Service Public de la Donnée de Référence (SPDR) est un service public
             numérique qui permet de suivre la conformité des 9 jeux de données de référence définis
             par la <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000033205649" target="_blank" rel="noopener noreferrer">
             loi pour une République Numérique</a> (2016, article 14).
           </p>
           <p>
-            Le code source de l'application est libre et disponible sur{" "}
+            Le code source de l&apos;application est libre et disponible sur{" "}
             <a href="https://github.com/benoitvx/observatoire-spdr" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>.
@@ -38,21 +38,21 @@ export default function CguPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Vocabulaire</h2>
           <ul>
-            <li><strong>« Nous »</strong> désigne l'éditeur du service, la Direction interministérielle du numérique (DINUM).</li>
-            <li><strong>« Vous »</strong> désigne toute personne utilisant l'Observatoire du SPDR.</li>
+            <li><strong>«&nbsp;Nous&nbsp;»</strong> désigne l&apos;éditeur du service, la Direction interministérielle du numérique (DINUM).</li>
+            <li><strong>«&nbsp;Vous&nbsp;»</strong> désigne toute personne utilisant l&apos;Observatoire du SPDR.</li>
           </ul>
         </section>
 
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Absence de garantie</h2>
           <p>
-            Les résultats affichés par l'Observatoire sont fournis à titre informatif. Ils sont calculés
-            automatiquement à partir des données disponibles sur l'API de{" "}
+            Les résultats affichés par l&apos;Observatoire sont fournis à titre informatif. Ils sont calculés
+            automatiquement à partir des données disponibles sur l&apos;API de{" "}
             <a href="https://www.data.gouv.fr" target="_blank" rel="noopener noreferrer">data.gouv.fr</a> et
             ne constituent pas une évaluation officielle.
           </p>
           <p>
-            L'Observatoire est mis à disposition sans garantie sur sa disponibilité. Nous nous efforçons
+            L&apos;Observatoire est mis à disposition sans garantie sur sa disponibilité. Nous nous efforçons
             de maintenir le service accessible en permanence, mais des interruptions peuvent survenir
             pour des raisons de maintenance ou techniques.
           </p>
@@ -61,38 +61,38 @@ export default function CguPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Vos données</h2>
           <p>
-            L'Observatoire du SPDR ne collecte aucune donnée personnelle. Aucun compte utilisateur
-            n'est nécessaire pour consulter le service.
+            L&apos;Observatoire du SPDR ne collecte aucune donnée personnelle. Aucun compte utilisateur
+            n&apos;est nécessaire pour consulter le service.
           </p>
           <p>
             Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être déposés.
-            Aucun cookie de suivi ou de mesure d'audience n'est utilisé.
+            Aucun cookie de suivi ou de mesure d&apos;audience n&apos;est utilisé.
           </p>
         </section>
 
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Évolutions du service</h2>
           <p>
-            L'Observatoire peut évoluer sans préavis. Les présentes conditions d'utilisation peuvent
-            être modifiées à tout moment. L'historique des modifications est consultable sur le dépôt GitHub du projet.
+            L&apos;Observatoire peut évoluer sans préavis. Les présentes conditions d&apos;utilisation peuvent
+            être modifiées à tout moment. L&apos;historique des modifications est consultable sur le dépôt GitHub du projet.
           </p>
         </section>
 
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Utilisation</h2>
           <p>
-            L'utilisation de l'Observatoire est libre et gratuite. Elle ne nécessite aucune inscription.
+            L&apos;utilisation de l&apos;Observatoire est libre et gratuite. Elle ne nécessite aucune inscription.
           </p>
           <p>
             Nous nous réservons le droit de bloquer, sans préavis ni compensation, tout usage
-            qui menacerait l'intégrité du service (attaque, scraping abusif, etc.).
+            qui menacerait l&apos;intégrité du service (attaque, scraping abusif, etc.).
           </p>
         </section>
 
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Code source</h2>
           <p>
-            Le code source de l'Observatoire est publié sous{" "}
+            Le code source de l&apos;Observatoire est publié sous{" "}
             <a href="https://github.com/benoitvx/observatoire-spdr/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">
               licence MIT
             </a>.

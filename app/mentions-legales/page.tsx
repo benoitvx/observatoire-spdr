@@ -22,7 +22,7 @@ export default function MentionsLegalesPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Éditeur</h2>
           <p>
-            L'Observatoire du Service Public de la Donnée de Référence (SPDR) est édité par la
+            L&apos;Observatoire du Service Public de la Donnée de Référence (SPDR) est édité par la
             Direction interministérielle du numérique (DINUM).
           </p>
           <address>
@@ -52,13 +52,13 @@ export default function MentionsLegalesPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Accessibilité</h2>
           <p>
-            La conformité aux normes d'accessibilité numérique est un objectif ultérieur.
-            En attendant, si vous rencontrez un défaut d'accessibilité vous empêchant d'accéder
+            La conformité aux normes d&apos;accessibilité numérique est un objectif ultérieur.
+            En attendant, si vous rencontrez un défaut d&apos;accessibilité vous empêchant d&apos;accéder
             à un contenu ou une fonctionnalité du site, merci de nous contacter
-            à l'adresse <a href="mailto:contact@data.gouv.fr">contact@data.gouv.fr</a>.
+            à l&apos;adresse <a href="mailto:contact@data.gouv.fr">contact@data.gouv.fr</a>.
           </p>
           <p>
-            Si vous n'obtenez pas de réponse rapide de notre part, vous êtes en droit de faire
+            Si vous n&apos;obtenez pas de réponse rapide de notre part, vous êtes en droit de faire
             parvenir vos doléances ou une demande de saisine au Défenseur des droits.
           </p>
         </section>
@@ -66,11 +66,11 @@ export default function MentionsLegalesPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Sécurité</h2>
           <p>
-            Le site est protégé par un certificat électronique, matérialisé pour la len de cas
-            par un cadenas dans la barre d'adresse et le protocole HTTPS.
+            Le site est protégé par un certificat électronique, matérialisé pour la plupart des cas
+            par un cadenas dans la barre d&apos;adresse et le protocole HTTPS.
           </p>
           <p>
-            L'Observatoire du SPDR ne vous demandera jamais vos informations personnelles
+            L&apos;Observatoire du SPDR ne vous demandera jamais vos informations personnelles
             par courriel non sollicité.
           </p>
         </section>
@@ -78,8 +78,8 @@ export default function MentionsLegalesPage() {
         <section className={fr.cx("fr-mb-4w")}>
           <h2>Contact</h2>
           <p>
-            Pour toute question relative à l'Observatoire du SPDR, vous pouvez nous contacter
-            à l'adresse : <a href="mailto:contact@data.gouv.fr"><strong>contact@data.gouv.fr</strong></a>
+            Pour toute question relative à l&apos;Observatoire du SPDR, vous pouvez nous contacter
+            à l&apos;adresse : <a href="mailto:contact@data.gouv.fr"><strong>contact@data.gouv.fr</strong></a>
           </p>
         </section>
 
