@@ -7,6 +7,7 @@ import { Display } from '@codegouvfr/react-dsfr/Display';
 import Link from 'next/link';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
+import { DsfrStartup } from '../components/DsfrStartup';
 
 declare module "@codegouvfr/react-dsfr/next-app-router" {
   interface RegisterLink {
@@ -56,6 +57,7 @@ export default function RootLayout({
 
           <Footer />
           <Display />
+          <DsfrStartup />
         </DsfrProviderBase>
       </body>
     </html>
