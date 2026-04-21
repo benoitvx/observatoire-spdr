@@ -19,7 +19,7 @@ declare global {
  */
 export function DsfrStartup() {
   useEffect(() => {
-    if (typeof window !== "undefined" && window.dsfr) {
+    if (typeof window !== "undefined" && window.dsfr && typeof window.dsfr.start === "function") {
       window.dsfr.start();
     }
   }, []);
