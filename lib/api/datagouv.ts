@@ -13,7 +13,7 @@ export async function getDataset(datasetId: string): Promise<DatagouvDataset> {
   
   try {
     const response = await fetch(url, {
-      next: { revalidate: 300 } // Cache de 5 minutes
+      next: { revalidate: 3600 } // Cache de 1 heure
     });
     
     if (!response.ok) {
